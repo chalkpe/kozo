@@ -1,0 +1,162 @@
+@font-face {
+  font-family: xivui;
+  font-style: normal;
+  font-weight: 400;
+  src: url('/ffxiv-lodestone-ssf.woff') format('woff');
+  unicode-range: u+e020-e0ff;
+}
+
+@font-face {
+  font-family: YasashisaGothicBoldV2;
+  src: url('/YasashisaGothicBold-V2.otf') format('opentype');
+}
+
+* {
+  font-family: xivui, YasashisaGothicBoldV2, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: #f4f4f4;
+  background-color: #0c0c0cdd;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main nav {
+  width: 100%;
+  position: fixed;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main nav .usage {
+  text-align: center;
+  font-size: 0.75rem;
+  padding-right: 1rem;
+}
+
+main nav ul {
+  padding: 0;
+  margin: 1rem;
+  display: flex;
+  column-gap: 1rem;
+}
+
+main nav ul li {
+  border: 2px solid #686868;
+  border-radius: 1rem;
+  padding: 0.4rem 1rem;
+  list-style: none;
+}
+
+main nav.all {
+  background-color: #141414dd;
+  
+}
+main nav.all ul li.selected {
+  color: #ff5043;
+  border-color: #ff5043;
+  background-color: #461715;
+}
+
+main nav.chat {
+  background-color: #171c1fdd;
+}
+main nav.chat ul li.selected {
+  color: #a5c3ee;
+  border-color: #a5c3ee;
+  background-color: #2b4855;
+}
+
+main nav.system {
+  background-color: #0f140fdd;
+}
+main nav.system ul li.selected {
+  color: #eeeea5;
+  border-color: #eeeea5;
+  background-color: #2b552b;
+}
+
+table {
+  width: 100%;
+  padding-top: 5.3rem;
+}
+
+table tr.system:nth-child(2n+1) {
+  background-color: #2f432f;
+}
+table tr.system:nth-child(2n) {
+  background-color: #1e2e1e;
+}
+
+table tr.chat:nth-child(2n) {
+  background-color: #1e2a32;
+}
+
+table tr.chat:nth-child(2n+1) {
+  background-color: #2a3942;
+}
+
+tr td.sender {
+  color: #b4de9e;
+  text-align: right;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+tr.chat td.sender {
+  color: #b1cfed;
+}
+
+tr td.fold {
+  width: 10rem;
+  max-width: 10rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+tr td {
+  line-height: 3.4rem;
+}
+
+tr td:has(ruby) {
+  padding-top: 0.5rem;
+}
+
+tr td:not(:first-child) {
+  padding-right: 2rem;
+}
+
+table, tr, th, td {
+  border-spacing: 0;
+}
+
+tr td.message ruby {
+  color: #96a78a;
+}
+tr.chat td.message ruby {
+  color: #889fb1;
+}
+
+tr td ruby rt {
+  color: #ffeeb0;
+  font-size: 0.9rem;
+}
+
+tr td ruby rt span.dakuon {
+  color: #e1c2ff;
+}
+
+tr td ruby rt span.hantakuon {
+  color: #ff90d1;
+}
