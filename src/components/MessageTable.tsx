@@ -28,6 +28,7 @@ const MessageTable: FC<MessageTableProps> = ({ selectedTab, messages }) => {
               </td>
             )}
             <td
+              onClick={() => navigator.clipboard.writeText(entry.originalMessage)}
               className="message"
               dangerouslySetInnerHTML={{ __html: entry.message }}
             />

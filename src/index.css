@@ -22,10 +22,23 @@ body {
   color: #f4f4f4;
   background-color: #0c0c0cdd;
 }
+body.transparent {
+  background-color: #0c0c0c00;
+}
 
 main {
   display: flex;
   flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 1rem;
+}
+::-webkit-scrollbar-track {
+  background-color: #0c0c0c;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #686868;
 }
 
 main nav {
@@ -55,16 +68,27 @@ main nav ul li {
   border-radius: 1rem;
   padding: 0.4rem 1rem;
   list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+body.transparent main nav ul li {
+  border-color: #68686844;
 }
 
 main nav.all {
   background-color: #141414dd;
-  
 }
 main nav.all ul li.selected {
   color: #ff5043;
   border-color: #ff5043;
   background-color: #461715;
+}
+body.transparent main nav.all {
+  background-color: #14141444;
+}
+body.transparent main nav.all ul li.selected {
+  border-color: #ff504344;
+  background-color: #46171544;
 }
 
 main nav.chat {
@@ -75,6 +99,13 @@ main nav.chat ul li.selected {
   border-color: #a5c3ee;
   background-color: #2b4855;
 }
+body.transparent main nav.chat {
+  background-color: #171c1f44;
+}
+body.transparent main nav.chat ul li.selected {
+  border-color: #a5c3ee44;
+  background-color: #2b485544;
+}
 
 main nav.system {
   background-color: #0f140fdd;
@@ -83,6 +114,13 @@ main nav.system ul li.selected {
   color: #eeeea5;
   border-color: #eeeea5;
   background-color: #2b552b;
+}
+body.transparent main nav.system {
+  background-color: #0f140f44;
+}
+body.transparent main nav.system ul li.selected {
+  border-color: #eeeea544;
+  background-color: #2b552b44;
 }
 
 table {
@@ -96,13 +134,24 @@ table tr.system:nth-child(2n+1) {
 table tr.system:nth-child(2n) {
   background-color: #1e2e1e;
 }
+body.transparent table tr.system:nth-child(2n+1) {
+  background-color: #2f432f44;
+}
+body.transparent table tr.system:nth-child(2n) {
+  background-color: #1e2e1e44;
+}
 
 table tr.chat:nth-child(2n) {
   background-color: #1e2a32;
 }
-
 table tr.chat:nth-child(2n+1) {
   background-color: #2a3942;
+}
+body.transparent table tr.chat:nth-child(2n) {
+  background-color: #1e2a3244;
+}
+body.transparent table tr.chat:nth-child(2n+1) {
+  background-color: #2a394244;
 }
 
 tr td.sender {

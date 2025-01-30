@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import MessageTable from './components/MessageTable'
 import { tabs } from './constants/ui'
 import api from './functions/api'
@@ -61,6 +61,18 @@ function App() {
   // 오버레이 플러그인과 연결
   useOverlayPlugin({ onMessage })
 
+  // 배경 투명화 상태
+  const [isTransparent, setIsTransparent] = useState(false)
+
+  useEffect(() => {
+    if (isTransparent) document.body.classList.add('transparent')
+    else document.body.classList.remove('transparent')
+
+    return () => {
+      document.body.classList.remove('transparent')
+    }
+  }, [isTransparent])
+
   return (
     <main>
       <nav className={selectedTab}>
@@ -70,6 +82,11 @@ function App() {
               {tab.name}
             </li>
           ))}
+        </ul>
+        <ul>
+          <li className={isTransparent ? 'selected' : ''} onClick={() => setIsTransparent((v) => !v)}>
+            BG
+          </li>
         </ul>
       </nav>
       <MessageTable selectedTab={selectedTab} messages={currentMessages} />
