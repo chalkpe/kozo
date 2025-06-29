@@ -11,7 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.7.0",
+    "jotai": "^2.12.5",
     "kuroshiro-browser": "^0.1.0",
+    "mime": "^4.0.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

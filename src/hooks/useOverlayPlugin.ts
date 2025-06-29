@@ -10,7 +10,7 @@ const useOverlayPlugin = ({ onMessage }: UseOverlayPluginProps) => {
     window.addOverlayListener('LogLine', onMessage)
     window.startOverlayEvents()
     return () => window.removeOverlayListener('LogLine', onMessage)
-  }, [])
+  }, [onMessage])
 }
 
 export default useOverlayPlugin

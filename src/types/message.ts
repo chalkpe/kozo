@@ -21,4 +21,10 @@ export interface MessageEntry {
 
   /** 원본 메시지 텍스트 */
   originalMessage: string
+
+  /** 번역 텍스트 */
+  translation?: string
+
+  /** 원본 번역 텍스트 */
+  originalTranslation?: string
 }

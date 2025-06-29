@@ -12,7 +12,7 @@
 }
 
 * {
-  font-family: xivui, YasashisaGothicBoldV2, sans-serif;
+  font-family: xivui, YasashisaGothicBoldV2, Jua, sans-serif;
 }
 
 body {
@@ -172,18 +172,27 @@ tr td.fold {
   white-space: nowrap;
   text-overflow: ellipsis;
   word-break: break-all;
+  line-height: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 tr td {
   line-height: 3.4rem;
 }
 
-tr td:has(ruby) {
+tr td.ruby {
   padding-top: 0.5rem;
 }
 
 tr td:not(:first-child) {
   padding-right: 2rem;
+}
+
+tr td.translation {
+  color: #ffeeb0;
+  line-height: 2.5rem;
+  word-break: keep-all;
 }
 
 table, tr, th, td {
