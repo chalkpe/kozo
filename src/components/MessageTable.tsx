@@ -28,6 +28,7 @@ const MessageTable: FC<MessageTableProps> = ({ selectedTab, messages, translate 
               onClick={() => translate(entry.id)}
             />
             {entry.translation && <td className="translation">{entry.translation}</td>}
+            {!entry.translation && entry.translationError && <td className="translation error">{entry.translationError}</td>}
           </tr>
         ))}
       </tbody>

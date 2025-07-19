@@ -27,4 +27,7 @@ export interface MessageEntry {
 
   /** 원본 번역 텍스트 */
   originalTranslation?: string
+
+  /** 번역 에러 메시지 */
+  translationError?: string
 }

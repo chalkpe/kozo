@@ -117,7 +117,10 @@ function App() {
         .then(() => {
           if (messages[messages.length - 1].id === id) scrollToBottom()
         })
-        .catch(() => updateMessage(id, { translation: '' }))
+        .catch((err) => {
+          console.error('Translation error:', err)
+          updateMessage(id, { translation: '', translationError: err.message })
+        })
     },
     [messages, translate, updateMessage],
   )

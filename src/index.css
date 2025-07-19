@@ -195,6 +195,10 @@ tr td.translation {
   word-break: keep-all;
 }
 
+tr td.error {
+  color: #ff5043;
+}
+
 table, tr, th, td {
   border-spacing: 0;
 }
