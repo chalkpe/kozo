@@ -1,5 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
+import Denque from 'denque'
 import { useAtom } from 'jotai'
+import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/fixed'
 import MessageTable from './components/MessageTable'
 import { tabs } from './constants/ui'
 import api from './functions/api'
@@ -14,9 +17,20 @@ import type { EventMap } from './types/overlay'
 import type { Tab } from './types/ui'
 
 function App() {
+  // 자동 번역 상태
+  const [autoTranslate, setAutoTranslate] = useAtom(autoTranslateAtom)
+  const autoTranslateQueueRef = useRef(new Denque<number>())
+
   // 메시지 목록 상태
   const [messages, setMessages] = useState<MessageEntry[]>([])
-  const appendMessage = useCallback((entry: MessageEntry) => setMessages((messages) => [...messages, entry]), [])
+  const appendMessage = useCallback(
+    (entry: MessageEntry) =>
+      flushSync(() => {
+        setMessages((messages) => [...messages, entry])
+        if (autoTranslate) autoTranslateQueueRef.current.push(entry.id)
+      }),
+    [autoTranslate],
+  )
   const updateMessage = useCallback(
     (id: number, entry: Partial<MessageEntry>) => setMessages((messages) => messages.map((e) => (e.id === id ? { ...e, ...entry } : e))),
     [],
@@ -83,9 +97,18 @@ function App() {
   const [geminiApiKey, setGeminiApiKey] = useAtom(geminiApiKeyAtom)
   const translate = useMemo(() => (geminiApiKey ? createTranslator({ apiKey: geminiApiKey }) : null), [geminiApiKey])
 
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      const response = prompt('번역에 사용할 API 키를 입력하세요.\nhttps://aistudio.google.com/apikey 에서 발급받을 수 있습니다.')?.trim()
+      if (response) setGeminiApiKey(response)
+    },
+    [setGeminiApiKey],
+  )
+
   // 번역
   const updateTranslation = useCallback(
-    (id: number) => {
+    async (id: number) => {
       if (!translate) return
 
       const entryIndex = messages.findIndex((message) => message.id === id)
@@ -95,7 +118,7 @@ function App() {
       if (!entry || entry.translation) return
 
       updateMessage(id, { translation: '...' })
-      translate(
+      return await translate(
         messages
           .slice(0, entryIndex + 1)
           .flatMap((message, index, array) =>
@@ -125,17 +148,16 @@ function App() {
     [messages, translate, updateMessage],
   )
 
-  // 자동 번역 상태
-  const [autoTranslate, setAutoTranslate] = useAtom(autoTranslateAtom)
-
+  // 자동 번역 큐 처리
   useEffect(() => {
-    if (autoTranslate) {
-      const lastMessage = messages[messages.length - 1]
-      if (lastMessage && !lastMessage.translation) {
-        updateTranslation(lastMessage.id)
+    const interval = setIntervalAsync(async () => {
+      if (!autoTranslateQueueRef.current.isEmpty()) {
+        const id = autoTranslateQueueRef.current.shift()
+        if (id !== undefined) await updateTranslation(id)
       }
-    }
-  }, [autoTranslate, messages, updateTranslation])
+    }, 500)
+    return () => void clearIntervalAsync(interval)
+  }, [updateTranslation])
 
   return (
     <main>
@@ -148,15 +170,7 @@ function App() {
           ))}
         </ul>
         <ul>
-          <li
-            className={autoTranslate ? 'selected' : ''}
-            onClick={() => setAutoTranslate((v) => !v)}
-            onContextMenu={(e) => {
-              e.preventDefault()
-              const response = prompt('번역에 사용할 API 키를 입력하세요.\nhttps://aistudio.google.com/apikey 에서 발급받을 수 있습니다.')?.trim()
-              if (response) setGeminiApiKey(response)
-            }}
-          >
+          <li className={autoTranslate ? 'selected' : ''} onClick={() => setAutoTranslate((v) => !v)} onContextMenu={handleContextMenu}>
             TR
           </li>
           <li className={isTransparent ? 'selected' : ''} onClick={() => setIsTransparent((v) => !v)}>
