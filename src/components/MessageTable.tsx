@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import TranslationError from './TranslationError'
 import type { Tab } from '../types/ui'
 import type { MessageEntry } from '../types/message'
 
@@ -23,12 +24,12 @@ const MessageTable: FC<MessageTableProps> = ({ selectedTab, messages, translate 
             </td>
             <td
               className={'message' + (entry.message.includes('<ruby>') ? ' ruby' : '')}
-              colSpan={entry.translation ? 1 : 2}
+              colSpan={entry.translation || entry.translationError ? 1 : 2}
               dangerouslySetInnerHTML={{ __html: entry.message }}
               onClick={() => translate(entry.id)}
             />
             {entry.translation && <td className="translation">{entry.translation}</td>}
-            {!entry.translation && entry.translationError && <td className="translation error">{entry.translationError}</td>}
+            {!entry.translation && entry.translationError && <TranslationError translationError={entry.translationError} />}
           </tr>
         ))}
       </tbody>
