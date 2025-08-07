@@ -12,11 +12,14 @@
   },
   "dependencies": {
     "@google/genai": "^1.7.0",
+    "denque": "^2.1.0",
     "jotai": "^2.12.5",
     "kuroshiro-browser": "^0.1.0",
     "mime": "^4.0.7",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "set-interval-async": "^3.0.3",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
