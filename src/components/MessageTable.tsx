@@ -12,10 +12,10 @@ interface MessageTableProps {
 const MessageTable: FC<MessageTableProps> = ({ selectedTab, messages, translate }) => {
   return (
     <table className={selectedTab}>
-      <tbody>
+      <tbody role="feed">
         {messages.map((entry) => (
-          <tr key={entry.id} className={entry.category}>
-            <td className={'sender fold' + (entry.sender.includes('<ruby>') ? ' ruby' : '')} title={entry.originalSender}>
+          <tr key={entry.id} role="article" className={entry.category}>
+            <td role="heading" className={'sender fold' + (entry.sender.includes('<ruby>') ? ' ruby' : '')} title={entry.originalSender}>
               {entry.originalSender !== entry.sender ? (
                 <span className="translation" dangerouslySetInnerHTML={{ __html: entry.sender === '시스템' ? '' : entry.sender }} />
               ) : (

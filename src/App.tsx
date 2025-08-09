@@ -1,3 +1,4 @@
+import './index.css'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import Denque from 'denque'
@@ -164,16 +165,21 @@ function App() {
       <nav className={selectedTab}>
         <ul>
           {tabs.map((tab) => (
-            <li key={tab.value} className={selectedTab === tab.value ? 'selected' : ''} onClick={() => changeTab(tab.value)}>
+            <li key={tab.value} role="button" className={selectedTab === tab.value ? 'selected' : ''} onClick={() => changeTab(tab.value)}>
               {tab.name}
             </li>
           ))}
         </ul>
         <ul>
-          <li className={autoTranslate ? 'selected' : ''} onClick={() => setAutoTranslate((v) => !v)} onContextMenu={handleContextMenu}>
+          <li
+            role="button"
+            className={autoTranslate ? 'selected' : ''}
+            onClick={() => setAutoTranslate((v) => !v)}
+            onContextMenu={handleContextMenu}
+          >
             TR
           </li>
-          <li className={isTransparent ? 'selected' : ''} onClick={() => setIsTransparent((v) => !v)}>
+          <li role="button" className={isTransparent ? 'selected' : ''} onClick={() => setIsTransparent((v) => !v)}>
             BG
           </li>
         </ul>

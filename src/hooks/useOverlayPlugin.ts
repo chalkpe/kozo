@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { EventMap } from '../types/overlay'
 
-interface UseOverlayPluginProps {
+export interface UseOverlayPluginProps {
   onMessage: EventMap['LogLine']
 }
 
