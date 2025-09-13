@@ -7,3 +7,7 @@ export const chatTypes = [
 ]
 
 export const npcDialogueTypes = [/** NPCDialogue */ 61, /** NPCDialogueAnnouncements */ 68]
+
+export const externalToolSignatures = [
+  /** ACT.UltraScouter */ { /** Echo */ type: 56, pattern: /^Hojoring>/ },
+]
