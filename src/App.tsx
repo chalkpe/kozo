@@ -9,7 +9,7 @@ import api from './functions/api'
 import { highlight } from './functions/lang'
 import createTranslator from './functions/translate'
 import { createId, scrollToBottom } from './functions/ui'
-import { getMessageCategoryByType, isCombatType } from './functions/xiv'
+import { getMessageCategoryByType, isCombatType, isExternalToolMessage } from './functions/xiv'
 import useOverlayPlugin from './hooks/useOverlayPlugin'
 import { autoTranslateAtom, geminiApiKeyAtom, isTransparentAtom } from './stores/settings'
 import type { MessageEntry } from './types/message'
@@ -54,6 +54,7 @@ function App() {
 
       const [type, sender, message] = [parseInt(event.line[2], 16), event.line[3], event.line[4]]
       if (isCombatType(type)) return
+      if (isExternalToolMessage(type, message)) return
 
       const id = createId()
       const category = getMessageCategoryByType(type)
