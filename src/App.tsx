@@ -119,6 +119,8 @@ function App() {
       if (!entry || entry.translation) return
 
       updateMessage(id, { translation: '...' })
+      if (messages[messages.length - 1].id === id) scrollToBottom()
+
       return await translate(
         messages
           .slice(0, entryIndex + 1)
